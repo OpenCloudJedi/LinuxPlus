@@ -1,0 +1,10 @@
+---
+- name: Configure ubuntu server
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: Add lab files to vagrant user's homedir
+      synchronize:
+        src: Materials/       
+        dest: /home/vagrant/Materials
