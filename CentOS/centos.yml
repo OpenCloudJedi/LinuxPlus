@@ -5,6 +5,7 @@
 
   tasks:
     - name: simply verify ansible works
-      say:
-        message: Linux server is ready. Do your worst. 
-      delegate_to: localhost
+      copy:
+        src: /vagrant/Materials 
+        dest: /home/vagrant/Materials
+        remote_src: yes
