@@ -6,4 +6,5 @@
   tasks:
     - name: simply verify ansible works
       say:
-        message: Linux server is ready. Do your worst.       
+        message: Linux server is ready. Do your worst. 
+      delegate_to: localhost
