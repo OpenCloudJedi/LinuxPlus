@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible-playbook -i /vagrant/inventory /vagrant/playbooks/ubuntu.yml
+ansible-playbook -i /vagrant/inventory /vagrant/ubuntu.yml
