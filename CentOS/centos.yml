@@ -9,11 +9,12 @@
         name: student
         state: present
         password: "{{ 'Pa22w0rd' | password_hash('sha512') }}"
+        groups: wheel
 
     - name: Add lab files to student user's homedir
       synchronize:
         src: /vagrant/Materials/       
-        dest: /home/student/Materials
+        dest: /opt/linuxplus
 
     - name: Create files for file manipulation activity
       command: "touch /home/student/{{ item }}"
@@ -76,9 +77,55 @@
         owner: student
         group: student
 
+    - name: Enable PowerTools repo
+      lineinfile:
+        path: /etc/yum.repos.d/CentOS-Stream-PowerTools.repo
+        line: enabled=1
+        regexp: ^enabled=0
+
     - name: Install needed tools
       dnf:
         name: "{{ item }}"
         state: present
       loop:
         - yum-utils
+        - sysstat
+        - ioping
+        - emacs
+        - vim-X11
+
+    - name: Create partition for LVM
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+        part_end: 100%
+
+    - name: Create "backup" VolGroup
+      lvg:
+        vg: backup
+        pvs: /dev/sdb1
+        pesize: 8
+
+    - name: Create Logical Volumes
+      lvol:
+        vg: backup
+        lv: "{{ item }}"
+        size: "512"
+      loop:
+        - sysbk
+        - databk
+        - logbk
+
+    - name: Add filesystem to sysbk
+      filesystem:
+        fstype: xfs
+        dev: /dev/backup/sysbk
+
+    - name: Add filesystem to databk and logbk lv
+      filesystem:
+        fstype: ext4
+        dev: "/dev/backup/{{ item }}"
+      loop:
+        - databk
+        - logbk
