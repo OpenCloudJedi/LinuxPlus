@@ -17,3 +17,9 @@
       loop:
         - bash-completion       
         - vim
+
+    - name: Enable ufw and allow port 22
+      ufw:
+        rule: allow
+        name: OpenSSH
+        state: enabled

@@ -93,6 +93,15 @@
         - ioping
         - emacs
         - vim-X11
+        - abrt-tui
+        - bridge-utils
+        - traceroute
+        - nmap
+        - wireshark
+        - netcat
+        - iftop
+        - whois
+        - strongswan
 
     - name: Create partition for LVM
       parted:
