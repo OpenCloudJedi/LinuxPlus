@@ -102,6 +102,7 @@
         - iftop
         - whois
         - strongswan
+        - abrt
 
     - name: Create partition for LVM
       parted:
