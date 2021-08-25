@@ -1,0 +1,9 @@
+---
+- name: This cleans up lab 6.2
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Delete all users created
+      shell: while IFS=":" read -r user x uid x; do if [[ $uid -gt 1000 ]]; then [[ $uid -lt 6000 ]] && userdel -rf "$user"; fi done </etc/passwd
+      args:
+        executable: /bin/bash

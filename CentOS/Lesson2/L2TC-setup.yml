@@ -1,0 +1,16 @@
+---
+- name: This is the setup script for lab 6.3
+  hosts: localhost
+  become: true
+  gather_facts: false
+  vars:
+    users:
+      - "Tim"
+      - "Tony"
+      - "Manu"
+  
+  tasks:
+    - name: Create the users for lab
+      user:
+        name: "{{ item }}"
+      loop: "{{ users }}"
