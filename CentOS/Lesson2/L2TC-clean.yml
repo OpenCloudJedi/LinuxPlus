@@ -17,8 +17,8 @@
         remove: yes
       loop: "{{ users }}"
 
-    - name: Remove any groups with uid range of 1001-5999
-      shell: while IFS=":" read -r group x gid x; do if [[ $gid -gt 1000 ]]; then [[ $gid -lt 6000 ]] && groupdel -f "$group"; fi done </etc/group
+    - name: Remove any groups with uid range of 1011-5999
+      shell: while IFS=":" read -r group x gid x; do if [[ $gid -gt 1010 ]]; then [[ $gid -lt 6000 ]] && groupdel -f "$group"; fi done </etc/group
       args:
         executable: /bin/bash
 
