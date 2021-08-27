@@ -1,5 +1,5 @@
 ---
-- name: This creates backup files of the sudoers and login.defs
+- name: This sets up the Lesson 2 Knowledge check lab
   hosts: localhost
   become: true
   tasks:

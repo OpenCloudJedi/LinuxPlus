@@ -1,5 +1,5 @@
 ---
-- name: This is the cleanup script for lab 6.1
+- name: This is the cleanup script for Lesson 2 Topic A lab
   hosts: localhost
   become: true
   gather_facts: false

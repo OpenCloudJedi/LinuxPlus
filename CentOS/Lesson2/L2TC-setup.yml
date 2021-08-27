@@ -1,5 +1,5 @@
 ---
-- name: This is the setup script for lab 6.3
+- name: This is the setup script for Lesson 2 Topic C lab
   hosts: localhost
   become: true
   gather_facts: false
