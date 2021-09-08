@@ -10,7 +10,8 @@
     - name: Creates user for lab
       user:
         name: "{{ user }}"
-
+        password: "{{ 'powerup' | password_hash('sha512') }}"
+        
     - name: This creates a copy of the sudoers file
       ansible.builtin.copy:
         src: /etc/sudoers
