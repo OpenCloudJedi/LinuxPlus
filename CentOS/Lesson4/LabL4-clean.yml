@@ -9,6 +9,9 @@
         path: /BestTeam
         state: absent
 
+    - name: unmount /BestTeam
+      shell: umount /BestTeam
+
     - name: Remove the logical volume OozmaKappa
       lvol:
         vg: MU
@@ -20,11 +23,21 @@
       lvg:
         vg: MU
         state: absent
+        force: yes
+
+    - name: Remove /BestTeam directory
+      shell: rm -rf /BestTeam
 
     - name: unmount partition 2
       mount:
         path: /Scaring101
         state: absent
+        
+    - name: unmount partition 2 again
+      shell: umount /Scaring101
+
+    - name: Remove /Scaring101 directory
+      shell: rm -rf /Scaring101
 
     - name: unmount partition 3
       mount:
@@ -47,6 +60,12 @@
       lvg:
         vg: RoarOmega
         state: absent
+
+    - name: Remove /ScreamEnergy directory
+      shell: rm -rf /ScreamEnergy
+
+    - name: Remove /ScareGames directory
+      shell: rm -rf /ScareGames
 
     - name: Remove signature from sdd1
       shell: 
