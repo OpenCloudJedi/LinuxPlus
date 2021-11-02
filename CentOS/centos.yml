@@ -11,7 +11,7 @@
         password: "{{ 'Pa22w0rd' | password_hash('sha512') }}"
         groups: wheel
 
-    - name: Add lab files to student user's homedir
+    - name: Add lab files to /opt/linuxplus directory
       synchronize:
         src: /vagrant/Materials/       
         dest: /opt/linuxplus
