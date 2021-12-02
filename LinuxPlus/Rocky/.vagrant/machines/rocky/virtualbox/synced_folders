@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"disabled":false,"guestpath":"/vagrant","hostpath":"/Users/student/ansible/project/LinuxPlus/Rocky","type":"rsync","rsync__exclude":[".git/","disk-0-1.vdi","disk-0-2.vdi","disk-0-3.vdi"],"__vagrantfile":true,"exclude":[".git/","disk-0-1.vdi","disk-0-2.vdi","disk-0-3.vdi"],"owner":"vagrant","group":"vagrant"}}}
