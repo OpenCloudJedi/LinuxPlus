@@ -8,6 +8,7 @@
       user:
         name: "{{ item }}"
         state: absent
+        remove: yes
       loop:
         - Megatron
         - StarScream
