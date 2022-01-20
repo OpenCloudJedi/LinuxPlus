@@ -23,3 +23,20 @@
         state: absent
         remove: yes
       loop: "{{ users }}"
+
+    - name: Copy a new "sudoers" file into place, after passing validation with visudo
+      ansible.builtin.copy:
+        src: /root/.sudoerscopy
+        dest: /etc/sudoers
+        remote_src: yes
+        validate: /usr/sbin/visudo -csf %s
+
+    - name: Remove copied file
+      file:
+        path: /root/.sudoerscopy
+        state: absent
+
+    - name: Remove any files created in /etc/sudoers.d
+      shell: rm -rf /etc/sudoers.d/*
+      args:
+        executable: /bin/bash
