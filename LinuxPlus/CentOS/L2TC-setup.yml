@@ -14,3 +14,10 @@
       user:
         name: "{{ item }}"
       loop: "{{ users }}"
+
+    - name: This creates a copy of the sudoers file
+      ansible.builtin.copy:
+        src: /etc/sudoers
+        dest: /root/.sudoerscopy
+        remote_src: yes
+        validate: /usr/sbin/visudo -csf %s
