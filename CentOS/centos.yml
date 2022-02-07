@@ -103,4 +103,8 @@
         - whois
         - strongswan
         - abrt
-        - cups-pdf-2.6.1-7
+    - name: Add lab alias for vagrant user
+      lineinfile:
+        path: /home/vagrant/.bashrc
+        insertafter: 'functions$'
+        line: alias lab="ansible-playbook"
