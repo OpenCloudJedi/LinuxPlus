@@ -1,0 +1,24 @@
+---
+- name: This will automate the install of software on the Ubuntu kick setup for the black all in one machines.
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install needed tools using apt
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - vim
+        - bash-completion
+        - curl 
+        - slack
+        - zoom
+        - libreoffice
+        - git
+        - vlc
+        - gimp
+        - gvim
+        - wireshark
+        - nmap
+        - netcat
+        - firefox
