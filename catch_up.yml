@@ -116,3 +116,16 @@
         groups: GraphicsDept
         append: yes
         comment: Rose Stanley
+        
+    - name: Add /scripts directory 
+      file:
+        name: /scripts
+        state: directory
+        owner: vagrant
+        group: vagrant
+        
+    - name: add /scripts to the PATH variable in the /home/vagrant/.bash_profile
+      lineinfile:
+        path: /home/vagrant/.bash_profile
+        line: PATH=$PATH:/scripts
+        insertafter: 'programs$'
