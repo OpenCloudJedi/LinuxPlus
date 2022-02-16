@@ -1,0 +1,118 @@
+---
+- name: Configure centos server
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Create partition for LVM
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+        part_end: 100%
+
+    - name: Create "backup" VolGroup
+      lvg:
+        vg: backup
+        pvs: /dev/sdb1
+        pesize: 8
+
+    - name: Create Logical Volumes
+      lvol:
+        vg: backup
+        lv: "{{ item }}"
+        size: "512"
+      loop:
+        - sysbk
+        - databk
+        - logbk
+
+    - name: Add filesystem to sysbk
+      filesystem:
+        fstype: xfs
+        dev: /dev/backup/sysbk
+
+    - name: Add filesystem to databk and logbk lv
+      filesystem:
+        fstype: ext4
+        dev: "/dev/backup/{{ item }}"
+      loop:
+        - databk
+        - logbk
+    
+    - name: create mountpoints
+      file:
+        name: "{{ item }}"
+        state: directory
+        owner: vagrant
+        group: vagrant
+      loop:
+        - /backup
+        - /backup/sys
+        - /backup/data
+        - /backup/log
+
+    - name: mount sysbk lv persistently
+      mount:
+        path: /backup/sys
+        src: /dev/backup/sysbk
+        fstype: xfs
+        opts: defaults
+        state: present
+
+    - name: mount logbk lv persistently
+      mount:
+        path: /backup/log
+        src: /dev/backup/logbk
+        fstype: ext4
+        opts: defaults
+        state: present
+
+    - name: mount databk lv persistently
+      mount:
+        path: /backup/data
+        src: /dev/backup/databk
+        fstype: ext4
+        opts: defaults
+        state: present
+
+    - name: Create groups
+      group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - SalesDept
+        - GraphicsDept
+        - MarketingDept
+        - FinanceDept
+
+    - name: Create manderson
+      user:
+        name: manderson
+        shell: /bin/bash
+        groups: FinanceDept
+        append: yes
+        comment: Michael Anderson
+
+    - name: Create ariley
+      user:
+        name: ariley
+        shell: /bin/bash
+        groups: MarketingDept
+        append: yes
+        comment: Andrew Riley
+
+    - name: Create ralexander
+      user:
+        name: ralexander
+        shell: /bin/bash
+        append: yes
+        comment: Rachel Alexander
+
+    - name: Create rstanley
+      user:
+        name: rstanley
+        shell: /bin/bash
+        groups: GraphicsDept
+        append: yes
+        comment: Rose Stanley
